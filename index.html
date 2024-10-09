@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Card</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="profile-card">
+        <div class="profile-image">
+            <img src="./aseets/photo_5780584084572063114_y.jpg" alt="Main Image">
+            <div class="profile-circle">
+                <img src="./aseets/width_150.jpg" alt="Profile Image">
+            </div>
+            <div class="text-overlay">
+                <h2>CARLA VAGNEN</h2>
+                <p id="location"><span>📍</span>Loading location...</p>
+                <p>5 minutes ago</p>
+            </div>
+
+        </div>
+        <div class="buttons">
+            <a href="https://instagram.com/carlaavagnenn" target="_blank">INSTAGRAM</a>
+            <a href="https://www.reddit.com/user/SJU777/" target="_blank">REDDIT</a>
+            <a href="https://onlyfans.com/camillashemlighet/c6" target="_blank">EXCLUSIVE</a>
+        </div>
+    </div>
+
+    <script>
+        // Fetch API للحصول على معلومات الموقع من ipgeolocation.io
+        const apiKey = '5f59c2f825bb489483e16ee806e830e4'; // أدخل مفتاح API هنا
+        fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${apiKey}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const location = `${data.city}, ${data.state_prov}, ${data.country_name}`; // تجميع المدينة، المحافظة، والدولة
+                document.getElementById('location').textContent = location; // عرض الموقع
+            })
+            .catch(error => {
+                console.error('Error fetching the location:', error);
+                document.getElementById('location').textContent = 'Unable to fetch location'; // رسالة في حالة الخطأ
+            });
+    </script>
+</body>
+
+</html>
